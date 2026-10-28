@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Academia de Péptidos · Farmacia Mia</title>
-<meta name="description" content="Biblioteca interactiva de 152 péptidos para el adiestramiento del personal de Farmacia Mia.">
+<title>Carlos Guzmán Peptides</title>
+<meta name="description" content="Referencia informativa de 152 péptidos para médicos: mecanismo, evidencia, estatus FDA y seguridad. Carlos Guzmán, PharmD.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -26,7 +26,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topin{display:flex;align-items:center;gap:12px;height:60px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700}
-.logo .mark{width:34px;height:34px;border-radius:10px;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:Fraunces,serif;font-size:19px}
+.logo .mark{width:36px;height:36px;border-radius:10px;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:Fraunces,serif;font-size:16px;letter-spacing:.02em}
 .logo small{display:block;font-weight:500;color:var(--muted);font-size:12px;line-height:1}
 nav.tabs{margin-left:auto;display:flex;gap:4px;overflow-x:auto}
 nav.tabs button{border:0;background:transparent;color:var(--muted);padding:8px 12px;border-radius:999px;font-weight:600;white-space:nowrap}
@@ -39,28 +39,40 @@ nav.tabs button.on{background:var(--brand);color:#fff}
 .hero h1{font-family:Fraunces,serif;font-size:clamp(32px,5vw,54px);line-height:1.02;margin:0 0 14px;letter-spacing:-.015em;text-wrap:balance}
 .hero p{color:var(--muted);max-width:52ch;margin:0;font-size:16px}
 .hero .chips{margin-top:16px}
-.stage{position:relative;height:560px;border-radius:24px;background:radial-gradient(120% 80% at 50% 30%,#ffffff 0%,#f1f7f5 60%,#e8f2ef 100%);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
-@media(max-width:900px){.stage{height:440px}}
-@media(max-width:520px){.stage{height:400px}}
-#stageCanvas{position:absolute;inset:0}
-#stageCanvas canvas{display:block;width:100%!important;height:100%!important;cursor:grab}
-#stageCanvas canvas:active{cursor:grabbing}
-#stageLabels{position:absolute;inset:0;pointer-events:none}
-.blabel{pointer-events:auto;position:absolute;left:0;top:0;display:flex;align-items:center;gap:0;border:0;background:none;padding:0;font:inherit;cursor:pointer;opacity:0;transition:opacity .25s}
-.stage.ready .blabel{opacity:1}
-.blabel i{display:block;width:16px;height:1.5px;background:var(--brand);opacity:.55}
-.blabel span{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:999px;padding:4px 9px;font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;box-shadow:0 2px 10px rgba(19,34,30,.08);backdrop-filter:blur(4px)}
-.blabel em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--muted);margin-left:-26px;display:none}
-.blabel:not(.r){flex-direction:row-reverse}
-.blabel:hover span,.blabel.hov span{border-color:var(--brand);color:var(--brand)}
-.blabel.on span{background:var(--accent);border-color:var(--accent);color:#fff}
-.blabel.on i{background:var(--accent);opacity:1}
-@media(max-width:520px){.blabel span{font-size:11px;padding:3px 7px}.blabel i{width:10px}}
+.stage{position:relative;height:600px;border-radius:24px;background:#fff;background-image:linear-gradient(#f1f5f4 1px,transparent 1px),linear-gradient(90deg,#f1f5f4 1px,transparent 1px);background-size:28px 28px;border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
+@media(max-width:900px){.stage{height:560px}}
+@media(max-width:520px){.stage{height:500px}}
+#stageCanvas{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px 10px 44px}
+svg.anat{width:100%;height:100%;display:block;font-family:Inter,system-ui,sans-serif}
+.anat .org,.anat .bodyg{cursor:pointer;transition:opacity .25s}
+.anat .org path,.anat .org ellipse,.anat .org circle{transition:filter .2s}
+.stage.has-active .anat .org:not(.on){opacity:.18}
+.anat .org.on{filter:url(#glow)}
+.anat .org.hov{filter:url(#glow)}
+.anat .bodyg.on .skin{stroke:#0f6b5c;stroke-width:3;fill:#f6efe9}
+.anat .bodyg.hov .skin{stroke:#0f6b5c;stroke-width:2.4}
+.anat .cl{cursor:pointer;outline:none}
+.anat .lead{fill:none;stroke:#0f6b5c;stroke-width:1.4;opacity:.55}
+.anat .adot{fill:#fff;stroke:#0f6b5c;stroke-width:2}
+.anat .prect{fill:#fff;stroke:#dbe4e1;stroke-width:1.2;filter:drop-shadow(0 2px 6px rgba(19,34,30,.08))}
+.anat .ptext{font-size:17px;font-weight:600;fill:#13221e}
+.anat .pcount{font-size:14px;font-weight:700;fill:#5b6b66}
+.anat .cl.hov .prect,.anat .cl:focus-visible .prect{stroke:#0f6b5c}
+.anat .cl.hov .lead{opacity:1}
+.anat .cl.on .prect{fill:#0f6b5c;stroke:#0f6b5c}
+.anat .cl.on .ptext,.anat .cl.on .pcount{fill:#fff}
+.anat .cl.on .lead{opacity:1;stroke-width:2}
+.anat .cl.on .adot{fill:#0f6b5c}
+.stage.has-active .anat .cl:not(.on){opacity:.55}
+.stage.compact .anat .cl{display:none}
+.disc{margin-top:16px;font-size:13.5px;line-height:1.5;color:#3f4f4a;background:#f6f9f8;border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:10px;padding:10px 12px;max-width:60ch}
+.disc b{color:var(--ink)}
+.lw{color:var(--brand)}
+.foot{display:grid;grid-template-columns:220px 1fr;gap:24px;align-items:start}
+.foot p{margin:0;line-height:1.55}
+@media(max-width:700px){.foot{grid-template-columns:1fr;gap:10px}}
 .stagehint{position:absolute;left:16px;bottom:14px;font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;background:rgba(255,255,255,.85);padding:5px 10px;border-radius:999px;border:1px solid var(--line)}
 .stagetag{position:absolute;right:16px;top:14px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
-.stage.no3d #stageCanvas,.stage.no3d #stageLabels,.stage.no3d .stagehint{display:none}
-.stage.no3d{height:auto;padding:20px}
-.stage.no3d::after{content:"Usa los botones de sistemas para filtrar.";color:var(--muted);font-size:14px}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 14px}
 .stat b{font-size:18px}.stat span{color:var(--muted);font-size:12px;display:block}
@@ -213,7 +225,7 @@ table.hist td,table.hist th{padding:8px;border-bottom:1px solid var(--line);text
 </head>
 <body>
 <header class="top"><div class="wrap topin">
-  <div class="logo"><div class="mark">M</div><div>Farmacia Mia<small>Academia de Péptidos</small></div></div>
+  <div class="logo"><div class="mark">CG</div><div>Carlos Guzmán <span class="lw">Peptides</span><small>Referencia clínica informativa</small></div></div>
   <nav class="tabs" id="tabs">
     <button data-v="lib" class="on">Biblioteca</button>
     <button data-v="fc">Flashcards</button>
@@ -226,15 +238,15 @@ table.hist td,table.hist th{padding:8px;border-bottom:1px solid var(--line);text
 <main id="v-lib">
 <div class="heroband"><section class="wrap hero">
   <div class="hintro">
-    <span class="eyebrow">Academia de Péptidos · Farmacia Mia</span>
-    <h1>Para qué se usa cada péptido.</h1>
-    <p>Guía interna de adiestramiento con 152 péptidos: cómo funcionan, qué dice la investigación, su estatus FDA y lo que el personal debe saber en el mostrador. Gira el cuerpo y toca un sistema, o busca por nombre, marca o uso.</p>
+    <span class="eyebrow">Carlos Guzmán, PharmD · Para profesionales de la salud</span>
+    <h1>152 péptidos, explicados con evidencia.</h1>
+    <p>Mecanismo de acción, ensayos clínicos, estatus ante la FDA, perfil de seguridad y datos de etiqueta de cada péptido, en un solo lugar. Toca un sistema en la lámina o busca por nombre, marca o indicación.</p>
+    <div class="disc"><b>Solo informativo.</b> Este contenido es educativo y no constituye una instrucción, recomendación terapéutica ni guía de prescripción.</div>
   </div>
-  <div class="stage" id="stage" aria-label="Modelo 3D del cuerpo: toca un sistema para filtrar">
+  <div class="stage" id="stage" aria-label="Lámina anatómica: toca un sistema para filtrar">
     <div id="stageCanvas"></div>
-    <div id="stageLabels"></div>
-    <span class="stagetag">Mapa 3D</span>
-    <span class="stagehint">↻ Arrastra para girar · toca un sistema</span>
+    <span class="stagetag">Lámina anatómica</span>
+    <span class="stagehint" id="stageCap">Vista anterior · toca un sistema</span>
   </div>
   <div class="hextra">
     <div class="stats" id="stats"></div>
@@ -323,7 +335,7 @@ table.hist td,table.hist th{padding:8px;border-bottom:1px solid var(--line);text
 <!-- PROGRESO -->
 <main id="v-prog" class="hidden"><div class="wrap fc-wrap" style="max-width:760px">
   <h2 style="font-family:Fraunces,serif;margin:0 0 4px">Mi progreso</h2>
-  <p class="hint">Se guarda en este navegador. Úsalo como referencia personal de estudio.</p>
+  <p class="hint">Se guarda solo en este navegador.</p>
   <div class="stats" id="pStats"></div>
   <div class="card body" style="margin-top:16px"><h3>Dominio por sistema</h3><div id="pAreas"></div></div>
   <div class="card body" style="margin-top:16px"><h3>Historial de quizzes</h3><div id="pHist"></div></div>
@@ -331,14 +343,13 @@ table.hist td,table.hist th{padding:8px;border-bottom:1px solid var(--line);text
 </div></main>
 
 
-<footer><div class="wrap">
-  Uso interno — adiestramiento del personal de Farmacia Mia. Contenido educativo; no sustituye la etiqueta del producto, el juicio del farmacéutico ni la receta médica. El estatus FDA puede cambiar: verificar siempre la fuente oficial antes de dispensar o preparar.
-  Clasificación base (sistema, estatus y nivel de evidencia) tomada de la Peptide Library de Superpower; descripciones en español redactadas para Farmacia Mia.
+<footer><div class="wrap foot">
+  <div><b>Carlos Guzmán Peptides</b><br>Carlos Guzmán, PharmD</div>
+  <p><b>Aviso:</b> Contenido exclusivamente informativo y educativo dirigido a profesionales de la salud. No es una instrucción, recomendación terapéutica, guía de prescripción ni sustituto del juicio clínico, la etiqueta aprobada por la FDA o la literatura vigente. El estatus regulatorio de los productos cambia con frecuencia; verifique siempre la fuente oficial. Clasificación base (sistema, estatus y nivel de evidencia) adaptada de la Peptide Library de Superpower; textos en español redactados de forma independiente.</p>
 </div></footer>
 
-<script src="vendor/three.min.js"></script>
 <script src="data.js"></script>
 <script src="app.js"></script>
-<script src="body3d.js"></script>
+<script src="body.js"></script>
 </body>
 </html>

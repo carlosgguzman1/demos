@@ -105,7 +105,7 @@ function art(p){var r=hash(p.n),n=7+(r%7),W=260,H=160,pts=[],col=CATCOL[p.ca];
   return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Ilustración de cadena de aminoácidos"><path d="'+path+'" fill="none" stroke="'+col+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>'+beads+'</svg>'}
 function li(arr){return (arr||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')}
 function renderDetail(p){var x=p.x||{},area=AREAS[p.ar],lv=EVS[p.ev].lv;
-  var secs=[['res','Resumen'],['vistazo','De un vistazo'],['como','¿Cómo funciona?'],['fda','¿Está aprobado?'],['inv','Investigación'],['seg','Seguridad'],['dosis','Dosis y administración'],['personal','Para el personal'],['fuentes','Fuentes']];
+  var secs=[['res','Resumen'],['vistazo','De un vistazo'],['como','¿Cómo funciona?'],['fda','¿Está aprobado?'],['inv','Investigación'],['seg','Seguridad'],['dosis','Dosis y administración'],['personal','Práctica clínica'],['fuentes','Fuentes']];
   var rel=P.filter(function(q){return q.ar===p.ar&&q.id!==p.id}).sort(function(a,b){return (a.ca===p.ca?0:1)-(b.ca===p.ca?0:1)||EVS[b.ev].lv-EVS[a.ev].lv}).slice(0,6);
   var list=P.slice().sort(function(a,b){return a.n.localeCompare(b.n,'es')}),ix=list.indexOf(p),prev=list[(ix-1+list.length)%list.length],next=list[(ix+1)%list.length];
   var segs='';for(var i=1;i<=4;i++)segs+='<i style="'+(i<=lv?'background:'+(p.ev==='baja'?'var(--baja)':p.ev==='moderada'?'var(--mod)':'var(--alta)'):'')+'"></i>';
@@ -113,7 +113,7 @@ function renderDetail(p){var x=p.x||{},area=AREAS[p.ar],lv=EVS[p.ev].lv;
   '<div class="dgrid"><article>'+
   '<header class="dhero"><div><span class="eyebrow">'+esc(area.n)+'</span><h1>'+esc(p.n)+'</h1>'+(p.al?'<div class="alias">También conocido como '+esc(p.al)+'</div>':'<div class="alias">'+esc(p.cl)+'</div>')+
    '<div class="tags">'+catTag(p)+evTag(p)+(p.al?'<span class="tag o">'+esc(p.cl)+'</span>':'')+'</div>'+
-   '<div class="byline">Guía interna de adiestramiento · Farmacia Mia</div><button class="btn mkb mkm'+(S.known[p.id]?' ghost':'')+'" type="button">'+(S.known[p.id]?'✓ Dominado':'Marcar como dominado')+'</button></div><div class="art">'+art(p)+'</div></header>'+
+   '<div class="byline">Carlos Guzmán Peptides · Contenido informativo para profesionales de la salud</div><button class="btn mkb mkm'+(S.known[p.id]?' ghost':'')+'" type="button">'+(S.known[p.id]?'✓ Dominado':'Marcar como dominado')+'</button></div><div class="art">'+art(p)+'</div></header>'+
   '<section class="dsec" id="s-res" style="padding-top:0"><div class="takeaway"><span class="eyebrow">Punto clave</span><p>'+esc(x.r||p.u)+'</p></div></section>'+
   '<section class="dsec" id="s-vistazo"><h2>De un vistazo</h2><table class="glance"><tbody>'+
    '<tr><th>Para qué se usa</th><td>'+esc(p.u)+'</td></tr>'+
@@ -133,11 +133,11 @@ function renderDetail(p){var x=p.x||{},area=AREAS[p.ar],lv=EVS[p.ev].lv;
    '<div><h4>Efectos comunes</h4><ul>'+(x.s&&x.s.length?li(x.s):'<li>Ver etiqueta del producto.</li>')+'</ul></div>'+
    '<div class="warn"><h4>Advertencias importantes</h4><ul>'+(x.sg&&x.sg.length?li(x.sg):'<li>'+esc(p.a)+'</li>')+'</ul></div></div></section>'+
   '<section class="dsec" id="s-dosis"><h2>Dosis y administración</h2><div class="dosebox"><b>'+esc(p.m)+'</b><br>'+esc(x.d||'Consultar la etiqueta oficial del producto.')+'</div>'+
-   '<p class="hint" style="margin-top:10px">Referencia educativa. La dosis de cada paciente la determina su receta.</p></section>'+
-  '<section class="dsec" id="s-personal"><div class="staff"><h2>Para el personal de Farmacia Mia</h2><ul>'+li((x.k||[]).concat([p.a]).filter(function(v,i,s){return s.indexOf(v)===i}))+'</ul></div></section>'+
+   '<p class="hint" style="margin-top:10px">Información de etiqueta y literatura con fines educativos. No es una recomendación de dosis ni una instrucción de uso.</p></section>'+
+  '<section class="dsec" id="s-personal"><div class="staff"><h2>Consideraciones para la práctica clínica</h2><ul>'+li((x.k||[]).concat([p.a]).filter(function(v,i,s){return s.indexOf(v)===i}))+'</ul></div></section>'+
   '<section class="dsec"><h2>Más de '+esc(area.n.toLowerCase())+'</h2><div class="related">'+rel.map(function(q){return '<a href="#p-'+q.sl+'"><b>'+esc(q.n)+'</b><span>'+esc(q.u)+'</span></a>'}).join('')+'</div></section>'+
   '<section class="dsec" id="s-fuentes"><h2>Fuentes</h2>'+(p.ci.length?'<ol class="cites">'+p.ci.map(function(u){return '<li><a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(u.replace(/^https?:\/\/(www\.)?/,'').replace(/\?.*$/,''))+'</a></li>'}).join('')+'</ol>':'<p class="hint">Sin fuentes listadas.</p>')+
-   '<p class="hint" style="margin-top:12px">Contenido educativo para uso interno. No sustituye la etiqueta del producto, la receta ni el juicio del farmacéutico.</p></section>'+
+   '<div class="disc" style="margin-top:16px"><b>Contenido informativo.</b> Esta ficha resume literatura publicada y etiquetas oficiales con fines educativos. No constituye una instrucción, recomendación terapéutica ni guía de prescripción. Las decisiones clínicas corresponden al médico tratante.</div></section>'+
   '<nav class="pnav"><a href="#p-'+prev.sl+'"><span>← Anterior</span>'+esc(prev.n)+'</a><a href="#p-'+next.sl+'"><span>Siguiente →</span>'+esc(next.n)+'</a></nav>'+
   '</article><aside class="toc"><h5>En esta ficha</h5>'+secs.map(function(s){return '<a href="#p-'+p.sl+'" data-s="s-'+s[0]+'">'+s[1]+'</a>'}).join('')+
    '<button class="btn mkb'+(S.known[p.id]?' ghost':'')+'" id="mk" type="button">'+(S.known[p.id]?'✓ Dominado':'Marcar como dominado')+'</button></aside></div>';
